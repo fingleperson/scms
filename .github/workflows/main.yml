@@ -2,11 +2,11 @@ name: weeklyreport
 
 on:
   schedule:
-    - cron: '0 0 * * 0'
+    - cron: '0 12 * * 6'
 
 jobs:
   post:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: checkout repo
