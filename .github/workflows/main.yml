@@ -1,0 +1,28 @@
+name: weeklyreport
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  post-analytics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run analytics script
+        env:
+          OPEN_CLOUD_API_KEY: ${{ secrets.OPEN_CLOUD_API_KEY }}
+          UNIVERSE_ID: ${{ secrets.UNIVERSE_ID }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python weeklyreport.py
