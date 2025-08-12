@@ -3,14 +3,14 @@ import requests
 import datetime
 
 API_KEY = os.getenv("OPEN_CLOUD_API_KEY")
-UNIVERSE_ID = os.getenv("UNIVERSE_ID")
+ID = os.getenv("ID")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 DATASTORE_NAME = "analyticsdata"
 SCOPE = ""
 STAT_KEYS = ["money"]
 
 def get_stat(stat_name):
-    url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores/datastore/entries/entry"
+    url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
     params = {"datastoreName": DATASTORE_NAME, "scope": SCOPE, "entryKey": stat_name}
     headers = {"x-api-key": API_KEY}
     r = requests.get(url, headers=headers, params=params)
@@ -19,7 +19,7 @@ def get_stat(stat_name):
     return 0
 
 def set_stat(stat_name, value):
-    url = f"https://apis.roblox.com/datastores/v1/universes/{UNIVERSE_ID}/standard-datastores/datastore/entries/entry"
+    url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
     params = {"datastoreName": DATASTORE_NAME, "scope": SCOPE, "entryKey": stat_name}
     headers = {
         "x-api-key": API_KEY,
@@ -31,8 +31,8 @@ def post(stats):
     date_str = datetime.datetime.utcnow().strftime("%Y-%m-%d")
     
     embed = {
-        "title": "",
-        "description": f"generated on {date_str} (UTC)",
+        "title": "WEEKLY REVENUE REPORT",
+        "description": f"FROM {date_str} (UTC)",
         "color": 0x00ADEF,
         "fields": [{"name": key, "value": str(value), "inline": True} for key, value in stats.items()],
         "timestamp": datetime.datetime.utcnow().isoformat()
