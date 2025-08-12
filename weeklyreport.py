@@ -7,7 +7,7 @@ ID = os.getenv("ID")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 DATASTORE_NAME = "analyticsdata"
 SCOPE = ""
-STAT_KEYS = ["money"]
+STAT_KEYS = ["GAIN", "LOSS", "TOTAL"]
 
 def get_stat(stat_name):
     url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
@@ -28,14 +28,15 @@ def set_stat(stat_name, value):
     requests.post(url, headers=headers, params=params, json={"value": value})
 
 def post(stats):
-    date_str = datetime.datetime.utcnow().strftime("%Y-%m-%d")
+    date_str = datetime.datetime.now(tz=datetime.UTC).isoformat()
     
     embed = {
         "title": "WEEKLY REVENUE REPORT",
         "description": f"FROM {date_str} (UTC)",
-        "color": 0x00ADEF,
-        "fields": [{"name": key, "value": str(value), "inline": True} for key, value in stats.items()],
-        "timestamp": datetime.datetime.utcnow().isoformat()
+        "fields": [
+            {"name": key, "value": str(value), "inline": True} for key, value in stats.items()
+            ],
+        "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
     }
     payload = {"embeds": [embed]}
     requests.post(DISCORD_WEBHOOK_URL, json=payload)
