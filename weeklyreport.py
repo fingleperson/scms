@@ -40,7 +40,7 @@ def post():
 
     embed = {
         "title": "WEEKLY REVENUE REPORT",
-        "description": f"FROM {datetime.datetime.today().strftime('%Y-%m-%d')}",
+        "description": f"FROM {datetime.datetime.today().strftime('%Y/%m/%d')}",
 
         "fields": [
             {
