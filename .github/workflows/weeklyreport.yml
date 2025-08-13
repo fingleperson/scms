@@ -2,7 +2,6 @@ name: weeklyreport
 
 on: 
   workflow_dispatch:
-    
   schedule:
     - cron: '0 12 * * 6'
 
@@ -23,8 +22,8 @@ jobs:
         run: pip install requests
 
       - name: run
+        run: python weeklyreport.py
         env:
           OPEN_CLOUD_API_KEY: ${{ secrets.OPEN_CLOUD_API_KEY }}
           ID: ${{ secrets.ID }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python weeklyreport.py

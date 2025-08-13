@@ -30,6 +30,8 @@ def post():
     earned = float(get_stat("earned"))
     spent = float(get_stat("spent"))
 
+    print(earned, spent)
+
     embed = {
         "title": "WEEKLY REVENUE REPORT",
         #"description": f"FROM {date_str} (UTC)",
