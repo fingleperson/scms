@@ -14,8 +14,16 @@ def get_stat(stat_name):
     headers = {"x-api-key": API_KEY}
     r = requests.get(url, headers=headers, params=params)
     if r.status_code == 200:
-        return float(r.json().get("value", 0))
-    return 0
+        data = r.json()
+
+        if isinstance(data, dict):
+            return float(data.get("value", 0))
+        elif isinstance(data, (float, int)):
+            return float(data)
+        else:
+            return 0
+    else:
+        return 0
 
 def set_stat(stat_name, value):
     url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
