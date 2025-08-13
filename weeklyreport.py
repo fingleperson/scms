@@ -6,7 +6,7 @@ API_KEY = os.getenv("OPEN_CLOUD_API_KEY")
 ID = os.getenv("ID")
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 DATASTORE_NAME = "analyticsdata"
-STAT_KEYS = ["earned", "spent"]
+STAT_KEYS = ["earned", "spent", "casualties"]
 
 def get_stat(stat_name):
     url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
@@ -37,10 +37,11 @@ def set_stat(stat_name, value):
 def post():
     earned = get_stat("earned")
     spent = get_stat("spent")
+    casualties = get_stat("casualties")
 
     embed = {
-        "title": "WEEKLY REVENUE REPORT",
-        "description": f"FROM {datetime.datetime.today().strftime('%Y/%m/%d')}",
+        "title": "WEEKLY REPORT",
+        "description": f"FROM {datetime.datetime.today().strftime('%d/%m/%Y')}",
 
         "fields": [
             {
@@ -57,7 +58,12 @@ def post():
                 "name": "TOTAL",
                 "value": f"${round(earned - spent, 2):,}",
                 "inline": True
-            }
+            },
+            {
+                "name": "CASUALTIES",
+                "value": f"{casualties:,}",
+                "inline": False
+            },
         ],
 
         "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
