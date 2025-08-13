@@ -1,9 +1,8 @@
 name: weeklyreport
 
-on: workflow-dispatch
-#on:
-  #schedule:
-    #- cron: '0 12 * * 6'
+on: workflow_dispatch#on:
+  schedule:
+    - cron: '0 12 * * 6'
 
 jobs:
   post:
