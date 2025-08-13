@@ -2,7 +2,7 @@ name: weeklyreport
 
 on:
   schedule:
-    - cron: '0 12 * * 6'
+    - cron: '15,30,45 * * * *' #'0 12 * * 6'
 
 jobs:
   post:
