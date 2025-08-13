@@ -1,6 +1,7 @@
 name: weeklyreport
 
-on: workflow_dispatch#on:
+on: workflow_dispatch
+on:
   schedule:
     - cron: '0 12 * * 6'
 
