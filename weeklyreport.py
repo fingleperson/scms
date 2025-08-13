@@ -35,12 +35,12 @@ def set_stat(stat_name, value):
     requests.post(url, headers=headers, params=params, json={"value": value})
 
 def post():
-    earned = float(get_stat("earned"))
-    spent = float(get_stat("spent"))
+    earned = get_stat("earned")
+    spent = get_stat("spent")
 
     embed = {
         "title": "WEEKLY REVENUE REPORT",
-        #"description": f"FROM {date_str} (UTC)",
+        "description": f"FROM {datetime.datetime.today().strftime('%Y-%m-%d')}",
 
         "fields": [
             {
@@ -55,7 +55,7 @@ def post():
             },
             {
                 "name": "TOTAL",
-                "value": f"${(earned - spent):,}",
+                "value": f"${round(earned - spent, 2):,}",
                 "inline": True
             }
         ],
