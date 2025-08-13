@@ -30,8 +30,6 @@ def post():
     earned = float(get_stat("earned"))
     spent = float(get_stat("spent"))
 
-    print(earned, spent)
-
     embed = {
         "title": "WEEKLY REVENUE REPORT",
         #"description": f"FROM {date_str} (UTC)",
@@ -39,17 +37,17 @@ def post():
         "fields": [
             {
                 "name": "EARNED",
-                "value": earned,
+                "value": f"${earned:,}",
                 "inline": True
             },
             {
                 "name": "SPENT",
-                "value": spent,
+                "value": f"${spent:,}",
                 "inline": True
             },
             {
                 "name": "TOTAL",
-                "value": earned + spent,
+                "value": f"${(earned - spent):,}",
                 "inline": True
             }
         ],
