@@ -45,8 +45,8 @@ def post():
 
         "fields": [
             {
-                "name": "# REVENUE",
-                "value": "\u200b",
+                "name": "**REVENUE**",
+                "value": "",
                 "inline": False
             },
             {
@@ -65,8 +65,8 @@ def post():
                 "inline": True
             },
             {
-                "name": "# EMPLOYEES",
-                "value": "\u200b",
+                "name": "**EMPLOYEES**",
+                "value": "",
                 "inline": False
             },
             {
