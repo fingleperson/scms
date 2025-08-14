@@ -77,7 +77,7 @@ def post():
         "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
     }
     payload = {"content": "<@&1405580107992662136>", "embeds": [embed]}
-    requests.post(DISCORD_WEBHOOK_URL, json=payload. verify=True)
+    requests.post(DISCORD_WEBHOOK_URL, json=payload, verify=True)
 
 if __name__ == "__main__":
     post()
