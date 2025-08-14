@@ -37,7 +37,7 @@ def set_stat(stat_name, value):
 def post():
     earned = get_stat("earned")
     spent = get_stat("spent")
-    casualties = get_stat("casualties")
+    casualties = int(get_stat("casualties"))
 
     embed = {
         "title": "WEEKLY REPORT",
