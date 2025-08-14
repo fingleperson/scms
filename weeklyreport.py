@@ -46,12 +46,12 @@ def post():
         "fields": [
             {
                 "name": "EARNED",
-                "value": f"${earned:,}",
+                "value": f"${round(earned, 2):,}",
                 "inline": True
             },
             {
                 "name": "SPENT",
-                "value": f"${spent:,}",
+                "value": f"${round(spent, 2):,}",
                 "inline": True
             },
             {
