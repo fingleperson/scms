@@ -76,6 +76,7 @@ def post():
             },
         ],
 
+        "color": "#3d5f3e",
         "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
     }
     payload = {"content": "<@&1405580107992662136>", "embeds": [embed]}
