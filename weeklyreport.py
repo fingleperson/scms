@@ -45,6 +45,10 @@ def post():
 
         "fields": [
             {
+                "name": "# REVENUE",
+                "inline": False
+            },
+            {
                 "name": "EARNED",
                 "value": f"${round(earned, 2):,}",
                 "inline": True
@@ -60,6 +64,10 @@ def post():
                 "inline": True
             },
             {
+                "name": "# EMPLOYEES",
+                "inline": False
+            },
+            {
                 "name": "CASUALTIES",
                 "value": f"{casualties:,}",
                 "inline": False
@@ -68,7 +76,7 @@ def post():
 
         "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
     }
-    payload = {"content": "<@551460052565753871>", "embeds": [embed]}
+    payload = {"content": "<@&1405580107992662136>", "embeds": [embed]}
     requests.post(DISCORD_WEBHOOK_URL, json=payload)
 
 if __name__ == "__main__":
