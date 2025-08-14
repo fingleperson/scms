@@ -68,7 +68,7 @@ def post():
 
         "timestamp": datetime.datetime.now(tz=datetime.UTC).isoformat()
     }
-    payload = {"embeds": [embed]}
+    payload = {"content": "<@551460052565753871>", "embeds": [embed]}
     requests.post(DISCORD_WEBHOOK_URL, json=payload)
 
 if __name__ == "__main__":
