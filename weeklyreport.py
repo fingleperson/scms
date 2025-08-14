@@ -78,7 +78,7 @@ def post():
     }
     payload = {"content": "<@&1405580107992662136>", "embeds": [embed]}
     r = requests.post(DISCORD_WEBHOOK_URL, json=payload, verify=True)
-    print(r.response_code, r.text)
+    print(r.status_code, r.text)
 
 if __name__ == "__main__":
     post()
