@@ -22,7 +22,7 @@ jobs:
         run: pip install requests
 
       - name: run
-        run: python weeklyreport.py
+        run: python -u weeklyreport.py
         env:
           OPEN_CLOUD_API_KEY: ${{ secrets.OPEN_CLOUD_API_KEY }}
           ID: ${{ secrets.TEST_ID }}
