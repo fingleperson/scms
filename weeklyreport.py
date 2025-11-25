@@ -9,7 +9,7 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 DATASTORE_NAME = "analyticsdata"
 WORLD_DATASTORE = "worlddata"
 STAT_KEYS = ["earned", "spent", "casualties"]
-CUTOFF_DAYS = 0.00347222
+CUTOFF_DAYS = 30
 
 def get_stat(stat_name):
     url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
@@ -118,16 +118,15 @@ def cleanup_worlddata():
 
                 print(f"deleting {key}")
                 requests.delete(delete_url, headers=headers, params=delete_params)
-
-                # throttle deletes to stay safe
-                time.sleep(0.1)
+                
+                time.sleep(0.2)
 
         cursor = body.get("nextPageCursor")
         if not cursor:
             break
 
 if __name__ == "__main__":
-    # post()
+    post()
     cleanup_worlddata()
-    # for key in STAT_KEYS:
-        # set_stat(key, 0)
+    for key in STAT_KEYS:
+        set_stat(key, 0)
