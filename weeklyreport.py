@@ -1,6 +1,7 @@
 import os
 import requests
 import datetime
+import time
 
 API_KEY = os.getenv("OPEN_CLOUD_API_KEY")
 ID = os.getenv("ID")
@@ -86,46 +87,44 @@ def post():
     print(r.status_code, r.text)
 
 def cleanup_worlddata():
-    url_list = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries"
-    params_list = {"datastoreName": WORLD_DATASTORE}
     headers = {"x-api-key": API_KEY}
+    base_url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries"
 
-    r = requests.get(url_list, headers=headers, params=params_list)
-    if r.status_code != 200:
-        print("failed listing worlddata keys:", r.text)
-        return
+    params = {"datastoreName": WORLD_DATASTORE}
+    cutoff_ts = int((datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=CUTOFF_DAYS)).timestamp())
 
-    entries = r.json().get("data", [])
-    cutoff = datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=CUTOFF_DAYS)
+    cursor = None
 
-    for entry in entries:
-        key = entry.get("key")
-        if not key:
-            continue
+    while True:
+        if cursor:
+            params["cursor"] = cursor
 
-        entry_url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
-        entry_params = {"datastoreName": WORLD_DATASTORE, "entryKey": key}
+        r = requests.get(base_url, headers=headers, params=params)
+        if r.status_code != 200:
+            print("list failed:", r.text)
+            break
 
-        r2 = requests.get(entry_url, headers=headers, params=entry_params)
-        if r2.status_code != 200:
-            print("failed getting key:", r.text)
-            continue
+        body = r.json()
+        entries = body.get("data", [])
 
-        print("ughhh")
-        print(r2.json())
-        
-        body = r2.json()
-        attrs = body.get("attributes", {})
+        for entry in entries:
+            key = entry.get("key")
+            attrs = entry.get("attributes", {})
+            ts = attrs.get("timestamp")
 
-        ts = attrs.get("timestamp")
-        if not ts:
-            # requests.delete(entry_url, headers=headers, params=entry_params)
-            continue
-        
-        ts_dt = datetime.datetime.fromtimestamp(ts, tz=datetime.UTC)
+            if ts and ts < cutoff_ts:
+                delete_url = f"{base_url}/entry"
+                delete_params = {"datastoreName": WORLD_DATASTORE, "entryKey": key}
 
-        # if ts_dt < cutoff:
-            # requests.delete(entry_url, headers=headers, params=entry_params)
+                print(f"deleting {key}")
+                requests.delete(delete_url, headers=headers, params=delete_params)
+
+                # throttle deletes to stay safe
+                time.sleep(0.1)
+
+        cursor = body.get("nextPageCursor")
+        if not cursor:
+            break
 
 if __name__ == "__main__":
     # post()
