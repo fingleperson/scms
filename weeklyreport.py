@@ -9,7 +9,7 @@ DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK")
 DATASTORE_NAME = "analyticsdata"
 WORLD_DATASTORE = "worlddata"
 STAT_KEYS = ["earned", "spent", "casualties"]
-CUTOFF_DAYS = 30
+CUTOFF_DAYS = 0.00347222
 
 def get_stat(stat_name):
     url = f"https://apis.roblox.com/datastores/v1/universes/{ID}/standard-datastores/datastore/entries/entry"
