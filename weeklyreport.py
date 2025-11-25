@@ -111,6 +111,7 @@ def cleanup_worlddata():
             print("failed getting key:", r.text)
             continue
 
+        print("ughhh")
         print(r2.json())
         
         body = r2.json()
