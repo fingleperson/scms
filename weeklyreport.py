@@ -108,6 +108,7 @@ def cleanup_worlddata():
 
         r2 = requests.get(entry_url, headers=headers, params=entry_params)
         if r2.status_code != 200:
+            print("failed getting key:", r.text)
             continue
 
         print(r2.json())
