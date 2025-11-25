@@ -27,3 +27,4 @@ jobs:
           OPEN_CLOUD_API_KEY: ${{ secrets.OPEN_CLOUD_API_KEY }}
           ID: ${{ secrets.TEST_ID }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          PYTHONUNBUFFERED: "1"
