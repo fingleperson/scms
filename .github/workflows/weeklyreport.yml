@@ -25,6 +25,6 @@ jobs:
         run: python -u weeklyreport.py
         env:
           OPEN_CLOUD_API_KEY: ${{ secrets.OPEN_CLOUD_API_KEY }}
-          ID: ${{ secrets.TEST_ID }}
+          ID: ${{ secrets.ID }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           PYTHONUNBUFFERED: "1"
